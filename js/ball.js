@@ -17,15 +17,35 @@ class Ball {
         this.center.x += this.velocity.x / this.game.deltaTime;
         this.center.y += this.velocity.y / this.game.deltaTime;
 
+        if (this.center.x + this.radius > this.game.canvas.width || this.center.x < this.radius) {
+            this.velocity.x = - this.velocity.x;
+        }
+        if (this.center.y < this.radius){
+            this.velocity.y = - this.velocity.y;
+        } 
+        if (this.center.y + this.radius > this.game.canvas.height && this.game.status !== GAMESTATE.FIRST_BALL_REACHED){
+            this.game.status = GAMESTATE.FIRST_BALL_REACHED;
+            this.game.currentLevel++;
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
+
         this.game.boxes.forEach(elm => {
-            if (this.center.x + this.radius > this.game.canvas.width || this.center.x < this.radius || collision.horizontal(this, elm)) this.velocity.x = - this.velocity.x;
-            if (this.center.y + this.radius > this.game.canvas.height || this.center.y < this.radius || collision.vertical(this, elm)) this.velocity.y = - this.velocity.y;
-            if (collision.corner(this, elm)) {
-                let temp_x = this.velocity.x;
-                let temp_y = this.velocity.y;
-                this.velocity.x = - temp_y;
-                this.velocity.y = - temp_x;
+            
+            if(collision.horizontal(this, elm)) {
+                this.velocity.x = - this.velocity.x;
+            elm.power--;
+            } 
+            else if(collision.vertical(this, elm)) {
+                this.velocity.y = - this.velocity.y;
+                elm.power--;
             }
+            // if (collision.corner(this, elm)) {
+            //     let temp_x = this.velocity.x;
+            //     let temp_y = this.velocity.y;
+            //     this.velocity.x = - temp_y;
+            //     this.velocity.y = - temp_x;
+            // }
         });
 
     }

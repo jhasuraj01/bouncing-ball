@@ -35,7 +35,7 @@ let collision = {
         // } else {
         //     return false;
         // }
-        if(T_top_left || T_top_right || T_bottom_left || T_top_right) { console.log('c'); return true; }
+        if(T_top_left || T_top_right || T_bottom_left || T_bottom_right) { console.log('c'); return true; }
         else return false;
     }
 }

@@ -11,7 +11,9 @@ let gameLoop = (timeStamp) => {
     game.draw();
     game.update();
 
-    game.running = requestAnimationFrame(gameLoop);
+    if(game.status === GAMESTATE.RUNNING || game.status === GAMESTATE.FIRST_BALL_REACHED) {
+        game.running = requestAnimationFrame(gameLoop);
+    }
 }
 requestAnimationFrame(gameLoop);
 
