@@ -17,7 +17,7 @@ requestAnimationFrame(gameLoop);
 
 setTimeout(() => {
     cancelAnimationFrame(game.running);
-}, 15000);
+}, 5000);
 
 document.addEventListener('keydown', event => {
     switch (event.keyCode) {

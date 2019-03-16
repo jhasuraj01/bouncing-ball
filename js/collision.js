@@ -80,21 +80,23 @@ let collision = {
         else return false;
     },
     corner(ball, obj) {
-        let T_top_left = (ball.center.x < obj.position.x && obj.position.x < ball.center.x + ball.radius) && (ball.center.y < obj.position.y && obj.position.y < ball.center.y + ball.radius);
+        let T_top_left = Math.abs(obj.position.x - ball.center.x) <= ball.radius && Math.abs(obj.position.y - ball.center.y) <= ball.radius;
 
-        let T_top_right = ((ball.center.x - ball.radius) < (obj.position.x + obj.width) && (obj.position.x + obj.width) < ball.center.x) && (ball.center.y < obj.position.y && obj.position.y < (ball.center.y + ball.radius));
+        let T_top_right = Math.abs(ball.center.x - obj.position.x - obj.width) <= ball.radius && Math.abs(obj.position.y - ball.center.y) <= ball.radius;
 
-        let T_bottom_left = (ball.center.x < obj.position.x && obj.position.x < ball.center.x + ball.radius) && (ball.center.y - ball.radius < obj.position.y + obj.height && obj.position.y + obj.height < ball.center.y);
+        let T_bottom_left = Math.abs(obj.position.x - ball.center.x) <= ball.radius && Math.abs(ball.center.y - obj.position.y - obj.height) <= ball.radius;
 
-        let T_bottom_right = (ball.center.x - ball.radius < obj.position.x + obj.width && obj.position.x + obj.width < ball.center.x) && (ball.center.y - ball.radius < obj.position.y + obj.height && obj.position.y + obj.height < ball.center.y);
+        let T_bottom_right = Math.abs(ball.center.x - obj.position.x - obj.width) <= ball.radius && Math.abs(ball.center.y - obj.position.y - obj.height) <= ball.radius;
 
         if (T_bottom_left) {
             console.log('bl');
             return true;
-        } else if (T_bottom_right) {
+        } else
+         if (T_bottom_right) {
             console.log('br');
             return true;
-        } else if (T_top_left) {
+        } else
+         if (T_top_left) {
             console.log('tl');
             return true;
         } else if (T_top_right) {
