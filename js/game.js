@@ -1,20 +1,15 @@
-const GAMESTATE = {
-    PAUSED: 0,
-    RUNNING: 1,
-    MENU: 2,
-    GAMEOVER: 3,
-    WON: 4,
-    FIRST_BALL_REACHED: 5
-};
 class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.color = ['red', 'green', 'blue', 'yellow', 'skyblue', 'indianRed'];
         this.balls = [];
+        this.ballRadius = (this.canvas.width + this.canvas.height)/100;
+        this.ballStartPoint = { x: this.canvas.width/2, y: (this.canvas.height - this.ballRadius) };
         this.boxes = [];
         this.currentLevel = 0;
-        this.status = GAMESTATE.MENU;
+        this.state = new Gamestate(this);
+        this.currentState = this.state.menu;
         this.levels = [
             [1, 0, 1, 0, 1, 0, 0 , 1]
         ]
@@ -22,8 +17,8 @@ class Game {
         this.addBall();
     }
     draw() {
-        if(this.status === GAMESTATE.MENU) {
-            this.status = GAMESTATE.RUNNING;
+        if(this.currentState === this.state.menu) {
+            this.currentState = this.state.running;
         }
         this.ctx.fillStyle = '#abcdef';
         this.ctx.fillRect(5, this.canvas.height - 25, this.canvas.width - 10, 20);
@@ -35,7 +30,7 @@ class Game {
         this.balls.forEach(ball => ball.update());
     }
     addBall() {
-        this.balls.push(new Ball(this, 'red', { x: 416, y: 486 }, { x: 50, y: -50 }));
+        this.balls.push(new Ball(this, 'red', this.ballStartPoint, this.ballRadius, { x: 50, y: -50 }));
         // this.balls.push(new Ball(this, 'pink', {x: 476, y: 26}, {x: -50, y: 50}));
         // this.balls.push(new Ball(this, 'yellow', {x: 486, y: 486}, {x: -50, y: -50}));
         // this.balls.push(new Ball(this, 'skyblue', {x: 16, y: 16}, {x: 50, y: 50}));

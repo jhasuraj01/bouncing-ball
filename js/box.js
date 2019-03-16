@@ -9,13 +9,10 @@ class Box {
         this.position = {};
         this.position.x = this.width * columnNumber;
         this.position.y = this.height * rowNumber;
-        
-        console.log(this.game.boxes);
     }
     draw() {
         if(this.power <= 0) {
             this.game.boxes = this.game.boxes.filter((elm) => elm.power > 0);
-            console.log(this.game.boxes);
             return;
         }
         this.game.ctx.fillStyle = this.color;
@@ -23,7 +20,7 @@ class Box {
 
         this.game.ctx.font = `${this.width/2}px Arial`;
         this.game.ctx.textBaseline = "middle";
-        this.game.ctx.fillStyle = "skyblue";
+        this.game.ctx.fillStyle = "black";
         this.game.ctx.textAlign = "center";
         this.game.ctx.fillText(this.power, this.position.x + this.width/2, this.position.y + this.height/2);
     }

@@ -4,36 +4,17 @@ let game = new Game(canvas);
 let previousTime = 0;
 let gameLoop = (timeStamp) => {
     game.deltaTime = timeStamp - previousTime;
+    console.log(`timestamp: ${timeStamp}; previousTime: ${previousTime}; DeltaTime: ${game.deltaTime}`);
     previousTime = timeStamp;
-
     game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
-
     game.draw();
     game.update();
 
-    if(game.status === GAMESTATE.RUNNING || game.status === GAMESTATE.FIRST_BALL_REACHED) {
-        game.running = requestAnimationFrame(gameLoop);
+    if(game.currentState === game.state.running || game.currentState === game.state.firstBallReached) {
+        game.animation = requestAnimationFrame(gameLoop);
     }
 }
 requestAnimationFrame(gameLoop);
-
 setTimeout(() => {
-    cancelAnimationFrame(game.running);
-}, 5000);
-
-document.addEventListener('keydown', event => {
-    switch (event.keyCode) {
-        case 80: // p button
-            cancelAnimationFrame(game.running);
-            break;
-        case 77: //l button
-            requestAnimationFrame(gameLoop);
-            break;
-    }
-});
-// setTimeout(() => {
-//     requestAnimationFrame(gameLoop);
-// }, 20000);
-// setTimeout(() => {
-//     cancelAnimationFrame(game.running);
-// }, 30000);
+    cancelAnimationFrame(game.animation);
+}, 3000); 
