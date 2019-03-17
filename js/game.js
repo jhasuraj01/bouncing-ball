@@ -2,45 +2,70 @@ class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.color = ['red', 'green', 'blue', 'yellow', 'skyblue', 'indianRed'];
-        this.balls = [];
-        this.ballRadius = (this.canvas.width + this.canvas.height)/100;
-        this.ballStartPoint = { x: this.canvas.width/2, y: (this.canvas.height - this.ballRadius) };
+        this.colors = ['red', 'green', 'blue', 'yellow', 'indianRed', 'orange'];
+
         this.boxes = [];
+        this.balls = [];
+        this.numberOfBall = 15;
+        this.numberOfBallReached = 0;
+        this.ballRadius = (this.canvas.width + this.canvas.height) / 100;
+        this.ballSpeed = (this.canvas.width + this.canvas.height) / 10;
+        this.ballLaunchBox = {
+            x: 0,
+            y: this.canvas.height - this.ballRadius * 3,
+            width: this.canvas.width,
+            height: this.ballRadius * 3
+        };
+        this.ballStartPoint = { x: this.canvas.width / 2, y: (this.ballLaunchBox.y + this.ballLaunchBox.height / 2) };
+
+        this.launcher = new Launcher(this);
+
         this.currentLevel = 0;
+        this.levels = [
+            [40, 0, 1, 0, 1, 0, 0, 1]
+        ];
+
         this.state = new Gamestate(this);
         this.currentState = this.state.menu;
-        this.levels = [
-            [1, 0, 1, 0, 1, 0, 0 , 1]
-        ]
+
         this.addBox();
         this.addBall();
     }
-    draw() {
-        if(this.currentState === this.state.menu) {
-            this.currentState = this.state.running;
+    update() {
+        if(this.currentState === this.state.newThrow) this.launcher.update();
+        this.boxes.forEach(box => box.update());
+        this.balls.forEach(ball => ball.update());
+        if (this.numberOfBallReached === this.numberOfBall) {
+            this.currentState = this.state.newThrow;
         }
+    }
+    draw() {
         this.ctx.fillStyle = '#abcdef';
-        this.ctx.fillRect(5, this.canvas.height - 25, this.canvas.width - 10, 20);
+        this.ctx.fillRect(this.ballLaunchBox.x, this.ballLaunchBox.y, this.ballLaunchBox.width, this.ballLaunchBox.height);
+        if(this.currentState === this.state.newThrow) this.launcher.draw();
         this.balls.forEach(ball => ball.draw());
         this.boxes.forEach(box => box.draw());
     }
-    update() {
-        this.boxes.forEach(box => box.update());
-        this.balls.forEach(ball => ball.update());
-    }
     addBall() {
-        this.balls.push(new Ball(this, 'red', this.ballStartPoint, this.ballRadius, { x: 50, y: -50 }));
-        // this.balls.push(new Ball(this, 'pink', {x: 476, y: 26}, {x: -50, y: 50}));
-        // this.balls.push(new Ball(this, 'yellow', {x: 486, y: 486}, {x: -50, y: -50}));
-        // this.balls.push(new Ball(this, 'skyblue', {x: 16, y: 16}, {x: 50, y: 50}));
+        for (let i = 0; i < this.numberOfBall; i++) {
+            this.balls.push(new Ball(this, this.colors[(i) % this.colors.length], this.ballStartPoint, this.ballRadius, { x: 0, y: 0 }));
+        }
     }
     addBox() {
-            const newRow = this.levels[this.currentLevel];
-            newRow.forEach((box, boxIndex) => {
-                // this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + Math.random()*this.currentLevel), 'red', this.currentLevel, boxIndex));
-                this.boxes.push(new Box(this, box, 'red', this.currentLevel, boxIndex));
-            });
+        const newRow = this.levels[this.currentLevel];
+        newRow.forEach((box, boxIndex) => {
+            // this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + Math.random()*this.currentLevel), 'red', this.currentLevel, boxIndex));
+            this.boxes.push(new Box(this, box, 'red', this.currentLevel, boxIndex));
+        });
+    }
+    throwBall() {
+        if(this.currentState !== this.state.newThrow) return;
+        this.balls.forEach((elm, elmIndex) => {
+            elm.velocity.x = (this.ballSpeed*this.launcher.direction.unitVector().x)*(1 + elmIndex/this.numberOfBall);
+            elm.velocity.y = (this.ballSpeed*this.launcher.direction.unitVector().y)*(1 + elmIndex/this.numberOfBall);
+        });
+        this.currentState = this.state.running;
+        this.numberOfBallReached = 0;
     }
 
 }

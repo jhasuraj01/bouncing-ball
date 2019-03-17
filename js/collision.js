@@ -1,12 +1,12 @@
 let collision = {
     horizontal(ball, obj) {
         // checking obj.right == ball.left || obj.left == ball.right) && ball.top < obj.bottom && ball.bottom > obj.top 
-        if ((obj.position.x + obj.width >= ball.center.x - ball.radius && obj.position.x <= ball.center.x + ball.radius) && ball.center.y >= obj.position.y && ball.center.y <= obj.position.y + obj.height) { console.log('h'); return true; }
+        if ((obj.position.x + obj.width >= ball.center.x - ball.radius && obj.position.x <= ball.center.x + ball.radius) && ball.center.y >= obj.position.y && ball.center.y <= obj.position.y + obj.height) { return true; }
         else return false;
     },
     vertical(ball, obj) {
         // checking obj.top == ball.bottom || obj.bottom == ball.top) && ball.left > obj.right && ball.right < obj.left
-        if ((obj.position.y <= ball.center.y + ball.radius && obj.position.y + obj.height >= ball.center.y - ball.radius) && ball.center.x >= obj.position.x && ball.center.x <= obj.position.x + obj.width) { console.log('v'); return true; }
+        if ((obj.position.y <= ball.center.y + ball.radius && obj.position.y + obj.height >= ball.center.y - ball.radius) && ball.center.x >= obj.position.x && ball.center.x <= obj.position.x + obj.width) { return true; }
         else return false;
     },
     corner(ball, obj) {
