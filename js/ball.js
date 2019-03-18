@@ -18,25 +18,23 @@ class Ball {
         this.center.x += this.velocity.x / this.game.deltaTime;
         this.center.y += this.velocity.y / this.game.deltaTime;
 
-        // if(this.game.currentState === this.game.state.newThrow) return;
-
-        // check collision with vertical wall
-        if (this.center.x + this.radius > this.game.canvas.width || this.center.x < this.radius) {
-            if (this.velocity.x > 0) {
-                this.center.x = this.game.canvas.width - this.radius;
-            } else if (this.velocity.x < 0) {
-                this.center.x = this.radius;
-            }
+        // check collision with right vertical wall
+        if (this.center.x >= this.game.canvas.width - this.radius) {
             this.velocity.x = - this.velocity.x;
+            this.center.x = this.game.canvas.width - this.radius;
+        }
+        // check collision with left vertical wall
+        else if (this.center.x <= this.radius) {
+            this.velocity.x = - this.velocity.x;
+            this.center.x = this.radius;
         }
         // check collision with top horizontal wall
         if (this.center.y < this.radius) {
             this.center.y = this.radius;
             this.velocity.y = - this.velocity.y;
         }
-
         // check collision with bottom ball and stop ball
-        if (this.center.y + this.radius > this.game.canvas.height || this.reached) {
+        else if (this.center.y + this.radius > this.game.canvas.height || this.reached) {
             this.velocity.y = 0;
             this.reached = true; // label the ball who reached bottom ball
             this.center.y = this.game.ballStartPoint.y;
