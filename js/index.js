@@ -6,7 +6,6 @@ let gameLoop = (timeStamp) => {
     game.deltaTime = timeStamp - previousTime;
     // console.log(`timestamp: ${timeStamp}; previousTime: ${previousTime}; DeltaTime: ${game.deltaTime}`);
     previousTime = timeStamp;
-    console.log(game.currentState);
 
     game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
     game.update();

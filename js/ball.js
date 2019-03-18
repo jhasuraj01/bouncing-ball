@@ -18,23 +18,16 @@ class Ball {
         this.center.x += this.velocity.x / this.game.deltaTime;
         this.center.y += this.velocity.y / this.game.deltaTime;
 
-        // check collision with right vertical wall
-        if (this.center.x >= this.game.canvas.width - this.radius) {
-            this.velocity.x = - this.velocity.x;
-            this.center.x = this.game.canvas.width - this.radius;
-        }
-        // check collision with left vertical wall
-        else if (this.center.x <= this.radius) {
-            this.velocity.x = - this.velocity.x;
-            this.center.x = this.radius;
-        }
+        // handle collision with vertical wall
+        this.game.collision.handleVerticalWall(this);
+
         // check collision with top horizontal wall
-        if (this.center.y < this.radius) {
+        if (this.game.collision.topWall(this)) {
             this.center.y = this.radius;
             this.velocity.y = - this.velocity.y;
         }
         // check collision with bottom ball and stop ball
-        else if (this.center.y + this.radius > this.game.canvas.height || this.reached) {
+        else if (this.game.collision.bottomWall(this) || this.reached) {
             this.velocity.y = 0;
             this.reached = true; // label the ball who reached bottom ball
             this.center.y = this.game.ballStartPoint.y;
@@ -63,29 +56,44 @@ class Ball {
                 }
             }
         }
+// check collision with boxes
+// this.game.boxes.forEach(elm => {
 
-        // check collision with boxes
+//     if (collision.horizontal(this, elm)) {
+//         if (this.velocity.x > 0) {
+//             this.center.x = elm.position.x - this.radius;
+//         } else if (this.velocity.x < 0) {
+//             this.center.x = elm.position.x + elm.width + this.radius;
+//         }
+//         this.velocity.x = - this.velocity.x;
+//         elm.power--;
+//     }
+//     else if (collision.vertical(this, elm)) {
+//         if (this.velocity.y > 0) {
+//             this.center.y = elm.position.y - this.radius;
+//         } else if (this.velocity.y < 0) {
+//             this.center.y = elm.position.y + elm.height + this.radius;
+//         }
+//         this.velocity.y = - this.velocity.y;
+//         elm.power--;
+//     }
+//     else if (collision.corner(this, elm)) {
+//         let temp_x = this.velocity.x;
+//         let temp_y = this.velocity.y;
+//         this.velocity.x = - temp_y;
+//         this.velocity.y = - temp_x;
+//     }
+// });
+        // try
         this.game.boxes.forEach(elm => {
 
-            if (collision.horizontal(this, elm)) {
-                if (this.velocity.x > 0) {
-                    this.center.x = elm.position.x - this.radius;
-                } else if (this.velocity.x < 0) {
-                    this.center.x = elm.position.x + elm.width + this.radius;
-                }
-                this.velocity.x = - this.velocity.x;
+            if (this.game.collision.handleHorizontalOfObject(this, elm)) {
                 elm.power--;
             }
-            else if (collision.vertical(this, elm)) {
-                if (this.velocity.y > 0) {
-                    this.center.y = elm.position.y - this.radius;
-                } else if (this.velocity.y < 0) {
-                    this.center.y = elm.position.y + elm.height + this.radius;
-                }
-                this.velocity.y = - this.velocity.y;
+            else if (this.game.collision.handleVerticalOfObject(this, elm)) {
                 elm.power--;
             }
-            else if (collision.corner(this, elm)) {
+            else if (this.game.collision.corner(this, elm)) {
                 let temp_x = this.velocity.x;
                 let temp_y = this.velocity.y;
                 this.velocity.x = - temp_y;

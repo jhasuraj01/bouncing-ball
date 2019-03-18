@@ -1,14 +1,108 @@
-let collision = {
+class Collision {
+    constructor(game) {
+        this.game = game;
+    }
+    handleVerticalWall(ball) {
+        // check collision with right vertical wall
+        if (this.rightWall(ball)) {
+            ball.velocity.x = - ball.velocity.x;
+            ball.center.x = this.game.canvas.width - ball.radius;
+            return true;
+        }
+        // check collision with left vertical wall
+        else if (this.leftWall(ball)) {
+            ball.velocity.x = - ball.velocity.x;
+            ball.center.x = ball.radius;
+            return true;
+        }
+        else return false;
+    }
+
+    // check collision with top wall
+    topWall(ball) {
+        return (ball.center.y <= ball.radius);
+    }
+
+    // check collision with bottom wall
+    bottomWall(ball) {
+        return (ball.center.y + ball.radius >= this.game.canvas.height);
+    }
+
+    // check collision with right wall
+    rightWall(ball) {
+        return (ball.center.x + ball.radius >= this.game.canvas.width);
+    }
+
+    // check collision with left wall
+    leftWall(ball) {
+        return (ball.center.x <= ball.radius);
+    }
+
+    // check collision with top Of Object
+    handleVerticalOfObject(ball, obj) {
+        if (this.topOfObject(ball, obj)) {
+            ball.center.y = obj.position.y - ball.radius;
+            ball.velocity.y = - ball.velocity.y;
+            console.log('top hit');
+            return true;
+        }
+        else if (this.bottomOfObject(ball, obj)) {
+            ball.center.y = obj.position.y + obj.height + ball.radius;
+            ball.velocity.y = - ball.velocity.y;
+            console.log('bottom hit');
+            return true;
+        }
+        else return false;
+    }
+
+    // check collision with bottom Of Object
+    handleHorizontalOfObject(ball, obj) {
+        if (this.rightOfObject(ball, obj)) {
+            ball.center.x = obj.position.x + obj.width + ball.radius;
+            ball.velocity.x = - ball.velocity.x;
+            console.log('right hit');
+            return true;
+        }
+        else if (this.leftOfObject(ball, obj)) {
+            ball.center.x = obj.position.x - ball.radius;
+            ball.velocity.x = - ball.velocity.x;
+            console.log('left hit');
+            return true;
+        }
+        else return false;
+    }
+
+    // check collision with top Of Object
+    topOfObject(ball, obj) {
+        return (this.vertical(ball, obj) && ball.velocity.y >= 0);
+    }
+
+    // check collision with bottom Of Object
+    bottomOfObject(ball, obj) {
+        return (this.vertical(ball, obj) && ball.velocity.y <= 0);
+    }
+
+    // check collision with right Of Object
+    rightOfObject(ball, obj) {
+        return (this.horizontal(ball, obj) && ball.velocity.x <= 0);
+    }
+
+    // check collision with left Of Object
+    leftOfObject(ball, obj) {
+        return (this.horizontal(ball, obj) && ball.velocity.x >= 0);
+    }
+
+    // check horizontal collision Of Object
     horizontal(ball, obj) {
-        // checking obj.right == ball.left || obj.left == ball.right) && ball.top < obj.bottom && ball.bottom > obj.top 
-        if ((obj.position.x + obj.width >= ball.center.x - ball.radius && obj.position.x <= ball.center.x + ball.radius) && ball.center.y >= obj.position.y && ball.center.y <= obj.position.y + obj.height) { return true; }
+        if ((obj.position.x + obj.width >= ball.center.x - ball.radius && obj.position.x <= ball.center.x + ball.radius) && ball.center.y >= obj.position.y && ball.center.y <= obj.position.y + obj.height) return true;
         else return false;
-    },
+    }
+
+    // check vertical collision Of Object
     vertical(ball, obj) {
-        // checking obj.top == ball.bottom || obj.bottom == ball.top) && ball.left > obj.right && ball.right < obj.left
-        if ((obj.position.y <= ball.center.y + ball.radius && obj.position.y + obj.height >= ball.center.y - ball.radius) && ball.center.x >= obj.position.x && ball.center.x <= obj.position.x + obj.width) { return true; }
+        if ((obj.position.y <= ball.center.y + ball.radius && obj.position.y + obj.height >= ball.center.y - ball.radius) && ball.center.x >= obj.position.x && ball.center.x <= obj.position.x + obj.width) return true;
         else return false;
-    },
+    }
     corner(ball, obj) {
         let T_top_left = Math.abs(obj.position.x - ball.center.x) <= ball.radius && Math.abs(obj.position.y - ball.center.y) <= ball.radius;
 

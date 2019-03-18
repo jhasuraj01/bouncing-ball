@@ -19,6 +19,7 @@ class Game {
         this.ballStartPoint = { x: this.canvas.width / 2, y: (this.ballLaunchBox.y + this.ballLaunchBox.height / 2) };
 
         this.launcher = new Launcher(this);
+        this.collision = new Collision(this);
 
         this.currentLevel = 0;
         this.levels = [
