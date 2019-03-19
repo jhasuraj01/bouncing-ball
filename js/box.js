@@ -11,6 +11,9 @@ class Box {
         this.position.x = this.width * columnNumber;
         this.position.y = 0;
     }
+    update() {
+        this.position.y = this.height * (this.game.currentLevel - this.rowNumber);
+    }
     draw() {
         if(this.power <= 0) {
             this.game.boxes = this.game.boxes.filter((elm) => elm.power > 0);
@@ -24,8 +27,5 @@ class Box {
         this.game.ctx.fillStyle = "black";
         this.game.ctx.textAlign = "center";
         this.game.ctx.fillText(this.power, this.position.x + this.width/2, this.position.y + this.height/2);
-    }
-    update() {
-        this.position.y = this.height * (this.game.currentLevel - this.rowNumber);
     }
 }
