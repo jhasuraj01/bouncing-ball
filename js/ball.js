@@ -33,7 +33,6 @@ class Ball {
             this.center.y = this.game.ballStartPoint.y;
             if (this.game.currentState !== this.game.state.firstBallReached) {
                 this.velocity.x = 0;
-                this.game.currentLevel++;
                 this.game.currentState = this.game.state.firstBallReached;
                 this.game.firstBallReached = this;
                 this.game.numberOfBallReached++;
