@@ -21,6 +21,9 @@ let gameLoop = (timeStamp) => {
     }
 }
 requestAnimationFrame(gameLoop);
+let gameOver = () => {
+    alert('Game Over');
+}
 // setTimeout(() => {
 //     game.currentState = game.state.paused;
 //     cancelAnimationFrame(game.animation);

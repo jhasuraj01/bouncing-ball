@@ -83,14 +83,14 @@ class Game {
         this.numberOfNewBall = 0;
     }
     addBox() {
-        const newRow = this.levels[this.currentLevel];
+        const newRow = this.levels[(this.currentLevel)%this.levels.length];
         if (!newRow) return;
         newRow.forEach((box, boxIndex) => {
             if (box < 0) {
                 this.coins.push(new Coin(this, this.currentLevel, boxIndex));
             } else if (box > 0) {
                 // this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + Math.random()*this.currentLevel), 'red', this.currentLevel, boxIndex));
-                this.boxes.push(new Box(this, box, 'red', this.currentLevel, boxIndex));
+                this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + 10*Math.random()*this.currentLevel), 'red', this.currentLevel, boxIndex));
             }
 
         });
