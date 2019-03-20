@@ -13,6 +13,9 @@ let gameLoop = (timeStamp) => {
     if (game.currentState === game.state.running || game.currentState === game.state.firstBallReached || game.currentState === game.state.newThrow) {
         game.animation = requestAnimationFrame(gameLoop);
         game.animationFrameStoped = false;
+    } else if(game.currentState === game.state.over) {
+        game.animationFrameStoped = true;
+        gameOver();
     } else {
         game.animationFrameStoped = true;
     }

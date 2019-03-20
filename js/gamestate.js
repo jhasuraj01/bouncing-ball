@@ -4,7 +4,7 @@ class Gamestate {
         this.paused = 0;
         this.running = 1;
         this.menu = 2;
-        this.gameover = 3;
+        this.over = 3;
         this.won = 4;
         this.firstBallReached = 5;
         this.newThrow = 6;

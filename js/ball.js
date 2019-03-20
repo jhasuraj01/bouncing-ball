@@ -94,10 +94,16 @@ class Ball {
                 elm.power--;
             }
             else if (this.game.collision.corner(this, elm)) {
+                elm.power--;
                 let temp_x = this.velocity.x;
-                let temp_y = this.velocity.y;
-                this.velocity.x = - temp_y;
+                this.velocity.x = - this.velocity.y;
                 this.velocity.y = - temp_x;
+            }
+        });
+        this.game.coins.forEach(elm => {
+            if (Math.abs(elm.center.x - this.center.x) <= this.radius + elm.radius.x && Math.abs(elm.center.y - this.center.y) <= this.radius + elm.radius.x && elm.power > 0) {
+                elm.power = 0;
+                this.game.numberOfNewBall++;
             }
         });
 

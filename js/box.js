@@ -5,14 +5,16 @@ class Box {
         this.power = power;
         this.rowNumber = rowNumber;
         
-        this.width = (this.game.canvas.width)/(this.game.levels[0].length);
-        this.height = this.width;
+        this.height = this.width = this.game.boxSideLength;
         this.position = {};
         this.position.x = this.width * columnNumber;
         this.position.y = 0;
     }
     update() {
         this.position.y = this.height * (this.game.currentLevel - this.rowNumber);
+        if(this.position.y + this.height >= this.game.ballLaunchBox.y) {
+            this.game.currentState = this.game.state.over;
+        }
     }
     draw() {
         if(this.power <= 0) {
