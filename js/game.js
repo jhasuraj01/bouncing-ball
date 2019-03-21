@@ -11,7 +11,7 @@ class Game {
         this.numberOfNewBall = 1;
         this.numberOfBallReached = 0;
         this.ballRadius = (this.canvas.width + this.canvas.height) / 100;
-        this.ballSpeed = (this.canvas.width + this.canvas.height) / 5;
+        this.ballSpeed = (this.canvas.width + this.canvas.height) / 6;
         this.ballLaunchBox = {
             x: 0,
             y: this.canvas.height - this.ballRadius * 3,
