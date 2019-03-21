@@ -95,9 +95,6 @@ class Ball {
             }
             else if (this.game.collision.corner(this, elm)) {
                 elm.power--;
-                let temp_x = this.velocity.x;
-                this.velocity.x = - this.velocity.y;
-                this.velocity.y = - temp_x;
             }
         });
         this.game.coins.forEach(elm => {

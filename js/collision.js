@@ -116,24 +116,44 @@ class Collision {
             console.log('bl');
             ball.center.x = obj.position.x - ball.radius + 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
+            
+            let temp_x = ball.velocity.x;
+            ball.velocity.x = ball.velocity.y;
+            ball.velocity.y = temp_x;
+
             return true;
         }
         else if (T_bottom_right) {
             console.log('br');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
+            
+            let temp_x = ball.velocity.x;
+            ball.velocity.x = - ball.velocity.y;
+            ball.velocity.y = - temp_x;
+
             return true;
         }
         else if (T_top_left) {
             console.log('tl');
             ball.center.x = obj.position.x - ball.radius + 1;
             ball.center.y = obj.position.y - ball.radius + 1;
+            
+            let temp_x = ball.velocity.x;
+            ball.velocity.x = - ball.velocity.y;
+            ball.velocity.y = - temp_x;
+
             return true;
         }
         else if (T_top_right) {
             console.log('tr');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
             ball.center.y = obj.position.y - ball.radius + 1;
+            
+            let temp_x = ball.velocity.x;
+            ball.velocity.x = ball.velocity.y;
+            ball.velocity.y = temp_x;
+
             return true;
         }
         else {
