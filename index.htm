@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,24 @@
     <title>Bouncing ball</title>
     <link rel="stylesheet" href="./css/index.css">
 </head>
+
 <body>
-    <fieldset>
-        <legend>Key</legend>
-        <button id="startGame">Start</button>
-        <button id="pauseGame">Pause</button>
-        <button id="resumeGame">Resume</button>
-    </fieldset>
+    <section class="start-menu">
+        <label for="startGame">Hit below and Start Scoring</label>
+        <button id="startGame" name="startGame">Start</button>
+    </section>
+    <section class="game-menu">
+        <fieldset>
+            <legend>Bouncing Ball</legend>
+            <button id="newGame">New</button>
+            <button id="pauseGame">Pause</button>
+            <button id="resumeGame">Resume</button>
+        </fieldset>
+    </section>
+    <section class="end-menu">
+        <button id="newGame">New</button>
+    </section>
+
     <canvas id="game-field" width="500" height="700"></canvas>
     <script src="./js/vector.js"></script>
     <script src="./js/launcher.js"></script>
@@ -26,4 +38,5 @@
     <script src="./js/index.js"></script>
     <script src="./js/input.js"></script>
 </body>
+
 </html>
