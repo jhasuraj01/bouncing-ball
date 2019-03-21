@@ -23,6 +23,7 @@ let gameLoop = (timeStamp) => {
 requestAnimationFrame(gameLoop);
 let gameOver = () => {
     alert('Game Over');
+    alert(`Lines: ${game.currentLevel}`);
 }
 // setTimeout(() => {
 //     game.currentState = game.state.paused;

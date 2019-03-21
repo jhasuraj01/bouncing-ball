@@ -15,7 +15,7 @@ document.addEventListener('keydown', event => {
             game.state.toggleResume();
             break;
         case 82: //r button
-            game.throwBall();
+            game.state.setNewThrow();
             break;
     }
 });

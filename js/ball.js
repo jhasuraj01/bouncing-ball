@@ -16,8 +16,8 @@ class Ball {
         this.game.ctx.fill();
     }
     update() {
-        this.center.x += this.velocity.x / this.game.deltaTime;
-        this.center.y += this.velocity.y / this.game.deltaTime;
+        this.center.x += this.velocity.x * this.game.deltaTime * 0.003;
+        this.center.y += this.velocity.y * this.game.deltaTime *0.003;
 
         // handle collision with vertical wall
         this.game.collision.handleVerticalWall(this);
@@ -57,34 +57,6 @@ class Ball {
             }
         }
 // check collision with boxes
-// this.game.boxes.forEach(elm => {
-
-//     if (collision.horizontal(this, elm)) {
-//         if (this.velocity.x > 0) {
-//             this.center.x = elm.position.x - this.radius;
-//         } else if (this.velocity.x < 0) {
-//             this.center.x = elm.position.x + elm.width + this.radius;
-//         }
-//         this.velocity.x = - this.velocity.x;
-//         elm.power--;
-//     }
-//     else if (collision.vertical(this, elm)) {
-//         if (this.velocity.y > 0) {
-//             this.center.y = elm.position.y - this.radius;
-//         } else if (this.velocity.y < 0) {
-//             this.center.y = elm.position.y + elm.height + this.radius;
-//         }
-//         this.velocity.y = - this.velocity.y;
-//         elm.power--;
-//     }
-//     else if (collision.corner(this, elm)) {
-//         let temp_x = this.velocity.x;
-//         let temp_y = this.velocity.y;
-//         this.velocity.x = - temp_y;
-//         this.velocity.y = - temp_x;
-//     }
-// });
-        // try
         this.game.boxes.forEach(elm => {
 
             if (this.game.collision.handleHorizontalOfObject(this, elm)) {
@@ -97,6 +69,7 @@ class Ball {
                 elm.power--;
             }
         });
+        // check collision with coins
         this.game.coins.forEach(elm => {
             if (Math.abs(elm.center.x - this.center.x) <= this.radius + elm.radius.x && Math.abs(elm.center.y - this.center.y) <= this.radius + elm.radius.x && elm.power > 0) {
                 elm.power = 0;
