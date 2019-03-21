@@ -4,7 +4,14 @@ body {
     margin: 0;
     padding: 0;
 }
+.start-menu {
+    width: 100v;
+    height: 100v;
+}
 #game-field {
+    /* height: 100%;
+    width: 100%; */
+    /* max-width: 32rem; */
     background-color: #012;
     margin: auto;
     position: absolute;
