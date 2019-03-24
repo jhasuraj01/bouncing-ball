@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <nav id="start-menu-window">
+    <section id="start-menu-window">
         <fieldset class="menu-btn-container">
             <legend>menu</legend>
             <button id="startGame">Start</button>
@@ -18,7 +18,15 @@
             <button>Info</button>
             <button>About</button>
         </fieldset>
-    </nav>
+    </section>
+    <section id="end-menu-window" style="display: none;">
+        <header>Game Over</header>
+        <fieldset class="menu-btn-container">
+            <legend>score</legend>
+            <p id="score-value">20 Lines</p>
+        </fieldset>
+        <button id="end-menu-cancel-btn">Cancel</button>
+    </section>
     <section class="game-menu">
         <fieldset>
             <legend>Bouncing Ball</legend>
