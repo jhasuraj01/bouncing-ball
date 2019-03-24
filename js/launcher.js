@@ -30,7 +30,6 @@ class Launcher {
         this.game.ctx.closePath();
     }
     updateTarget(event) {
-        console.log(event);
         game.launcher.target.x = event.offsetX;
         game.launcher.target.y = event.offsetY;
         // this.target = {x: event.offsetX, y: event.offsetY};
