@@ -13,8 +13,7 @@ let gameLoop = (timeStamp) => {
     if (game.currentState === game.state.running || game.currentState === game.state.firstBallReached || game.currentState === game.state.newThrow) {
         game.animation = requestAnimationFrame(gameLoop);
         game.animationFrameStoped = false;
-    } else if(game.currentState === game.state.over) {
-        game.animationFrameStoped = true;
+    } else if (game.currentState === game.state.over) {
         gameOver();
     } else {
         game.animationFrameStoped = true;
@@ -22,10 +21,11 @@ let gameLoop = (timeStamp) => {
 }
 requestAnimationFrame(gameLoop);
 let gameOver = () => {
-    alert('Game Over');
-    alert(`Lines: ${game.currentLevel}`);
+    game.animationFrameStoped = true;
+    cancelAnimationFrame(game.animation);
+    document.getElementById('score-value').innerText = `${game.currentLevel} Lines`;
+    end_menu_window.style.display = 'flex';
 }
 // setTimeout(() => {
 //     game.currentState = game.state.paused;
-//     cancelAnimationFrame(game.animation);
 // }, 3100); 

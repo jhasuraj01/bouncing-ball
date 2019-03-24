@@ -30,6 +30,7 @@ class Ball {
         // check collision with bottom ball and stop ball
         else if (this.game.collision.bottomWall(this) || this.reached) {
             this.velocity.y = 0;
+            this.velocity.x = this.game.ballSpeed;
             this.reached = true; // label the ball who reached bottom ball
             this.center.y = this.game.ballStartPoint.y;
             if (this.game.currentState !== this.game.state.firstBallReached) {

@@ -2,8 +2,8 @@ class Launcher {
     constructor(game) {
         this.game = game;
         this.center = {
-            x: this.game.ballStartPoint.x,
-            y: this.game.ballStartPoint.y
+            x: this.game.canvas.width / 2,
+            y: (this.game.ballLaunchBox.y + this.game.ballLaunchBox.height / 2)
         }
         this.target = {x: this.center.x, y: this.center.y};
         this.game.canvas.addEventListener('mousemove', this.updateTarget);
