@@ -1,4 +1,7 @@
 let canvas = document.getElementById('game-field');
+canvas.width = canvas.scrollWidth;
+canvas.height = canvas.scrollHeight;
+console.log(`canvas.width : ${canvas.width}, canvas.height : ${canvas.height}`);
 let game = new Game(canvas);
 
 let previousTime = 0;
@@ -24,7 +27,7 @@ let gameOver = () => {
     game.animationFrameStoped = true;
     cancelAnimationFrame(game.animation);
     document.getElementById('score-value').innerText = `${game.currentLevel} Lines`;
-    end_menu_window.style.display = 'flex';
+    end_menu_window.style.display = 'block';
 }
 // setTimeout(() => {
 //     game.currentState = game.state.paused;

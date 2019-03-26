@@ -17,7 +17,7 @@ pause_button.addEventListener('click', () => { game.state.pause(); });
 resume_button.addEventListener('click',  () => { game.state.resume(); });
 canvas.addEventListener('click', () => { game.throwBall(); })
 cancelEndGameWindow_btn.addEventListener('click', () => {
-    start_menu_window.style.display = 'flex';
+    start_menu_window.style.display = 'block';
     end_menu_window.style.display = 'none';
 });
 document.addEventListener('keydown', event => {
