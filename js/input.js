@@ -5,37 +5,29 @@ let pause_button = document.getElementById('pauseGame');
 let resume_button = document.getElementById('resumeGame');
 let end_menu_window = document.getElementById('end-menu-window');
 let cancelEndGameWindow_btn = document.getElementById('end-menu-cancel-btn');
-let body = document.querySelector('body');
 let startNewGame = () => {
     game.startNew();
     game.state.setNewThrow();
     start_menu_window.style.display = 'none';
 }
 
-let openFullscreen = () => {
-    if (body.requestFullscreen) {
-        body.requestFullscreen();
-    } else if (body.mozRequestFullScreen) { /* Firefox */
-        body.mozRequestFullScreen();
-    } else if (body.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-        body.webkitRequestFullscreen();
-    } else if (body.msRequestFullscreen) { /* IE/Edge */
-        body.msRequestFullscreen();
+let toggleFullScreen = () => {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl);
+    }
+    else {
+        cancelFullScreen.call(doc);
     }
 }
-document.getElementById('openFullscreen').addEventListener('click', openFullscreen);
-let closeFullscreen = () => {
-    if (body.exitFullscreen) {
-        body.exitFullscreen();
-    } else if (body.mozCancelFullScreen) { /* Firefox */
-        body.mozCancelFullScreen();
-    } else if (body.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-        body.webkitExitFullscreen();
-    } else if (body.msExitFullscreen) { /* IE/Edge */
-        body.msExitFullscreen();
-    }
+for (const btn of document.getElementsByClassName('toggleFullScreen')) {
+    btn.addEventListener('click', toggleFullScreen);
 }
-document.getElementById('closeFullscreen').addEventListener('click', closeFullscreen);
 
 start_button.addEventListener('click', startNewGame);
 pause_button.addEventListener('click', () => { game.state.pause(); });

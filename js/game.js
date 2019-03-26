@@ -46,7 +46,7 @@ class Game {
         };
     }
     startNew() {
-        
+        this.set();
         this.boxes = [];
         this.coins = [];
         this.balls = [];
