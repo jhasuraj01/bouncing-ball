@@ -4,15 +4,7 @@ class Game {
         this.ctx = canvas.getContext('2d');
         this.colors = ['#f00000', '#00f000', '#0000f0', '#ff0000', '#00ff00', '#0000ff', '#0ff000', '#000ff0', '#f0000f', '#fff000', '#00fff0', '#f000ff', '#000fff', '#0fff00', '#ff000f', '#ffff00', '#00ffff', '#0ffff0', '#f00fff', '#ff00ff', '#fff00f', '#fffff0', '#f0ffff', '#fff0ff', '#0fffff', '#ffff0f', '#ff0fff'];
         this.complementaryColors = ['#0fffff', '#ff0fff', '#ffff0f', '#00ffff', '#ff00ff', '#ffff00', '#f00fff', '#fff00f', '#0ffff0', '#000fff', '#ff000f', '#0fff00', '#fff000', '#f000ff', '#00fff0', '#0000ff', '#ff0000', '#f0000f', '#0ff000', '#00ff00', '#000ff0', '#00000f', '#0f0000', '#000f00', '#f00000', '#0000f0', '#00f000'];
-        
-        this.ballRadius = (this.canvas.width + this.canvas.height) / 100;
-        this.ballSpeed = (this.canvas.width + this.canvas.height) / 6;
-        this.ballLaunchBox = {
-            x: 0,
-            y: this.canvas.height - this.ballRadius * 3,
-            width: this.canvas.width,
-            height: this.ballRadius * 3
-        };
+        this.set();
         // negative represents coin
         this.levels = [
             [4, 0, 1, 0, 1, 0, 0, -1],
@@ -41,7 +33,20 @@ class Game {
 
         this.launcher = new Launcher(this);
     }
+    set() {
+        canvas.width = canvas.scrollWidth;
+        canvas.height = canvas.scrollHeight;
+        this.ballRadius = (this.canvas.width + this.canvas.height) / 100;
+        this.ballSpeed = (this.canvas.width + this.canvas.height) / 6;
+        this.ballLaunchBox = {
+            x: 0,
+            y: this.canvas.height - this.ballRadius * 3,
+            width: this.canvas.width,
+            height: this.ballRadius * 3
+        };
+    }
     startNew() {
+        
         this.boxes = [];
         this.coins = [];
         this.balls = [];

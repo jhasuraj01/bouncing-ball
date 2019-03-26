@@ -1,6 +1,4 @@
 let canvas = document.getElementById('game-field');
-canvas.width = canvas.scrollWidth;
-canvas.height = canvas.scrollHeight;
 console.log(`canvas.width : ${canvas.width}, canvas.height : ${canvas.height}`);
 let game = new Game(canvas);
 
