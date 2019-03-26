@@ -1,5 +1,6 @@
 let canvas = document.getElementById('game-field');
-console.log(`canvas.width : ${canvas.width}, canvas.height : ${canvas.height}`);
+let number_of_balls_foruserInfo = document.getElementById('number-of-balls-foruserInfo');
+let current_score_foruserInfo = document.getElementById('current-score-foruserInfo');
 let game = new Game(canvas);
 
 let previousTime = 0;

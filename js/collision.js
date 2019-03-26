@@ -43,13 +43,13 @@ class Collision {
         if (this.topOfObject(ball, obj)) {
             ball.center.y = obj.position.y - ball.radius;
             ball.velocity.y = - ball.velocity.y;
-            console.log('top hit');
+            // console.log('top hit');
             return true;
         }
         else if (this.bottomOfObject(ball, obj)) {
             ball.center.y = obj.position.y + obj.height + ball.radius;
             ball.velocity.y = - ball.velocity.y;
-            console.log('bottom hit');
+            // console.log('bottom hit');
             return true;
         }
         else return false;
@@ -60,13 +60,13 @@ class Collision {
         if (this.rightOfObject(ball, obj)) {
             ball.center.x = obj.position.x + obj.width + ball.radius;
             ball.velocity.x = - ball.velocity.x;
-            console.log('right hit');
+            // console.log('right hit');
             return true;
         }
         else if (this.leftOfObject(ball, obj)) {
             ball.center.x = obj.position.x - ball.radius;
             ball.velocity.x = - ball.velocity.x;
-            console.log('left hit');
+            // console.log('left hit');
             return true;
         }
         else return false;
@@ -113,7 +113,7 @@ class Collision {
         let T_bottom_right = Math.abs(ball.center.x - obj.position.x - obj.width) < ball.radius && Math.abs(ball.center.y - obj.position.y - obj.height) < ball.radius;
 
         if (T_bottom_left) {
-            console.log('bl');
+            // console.log('bl');
             ball.center.x = obj.position.x - ball.radius + 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
             
@@ -124,7 +124,7 @@ class Collision {
             return true;
         }
         else if (T_bottom_right) {
-            console.log('br');
+            // console.log('br');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
             
@@ -135,7 +135,7 @@ class Collision {
             return true;
         }
         else if (T_top_left) {
-            console.log('tl');
+            // console.log('tl');
             ball.center.x = obj.position.x - ball.radius + 1;
             ball.center.y = obj.position.y - ball.radius + 1;
             
@@ -146,7 +146,7 @@ class Collision {
             return true;
         }
         else if (T_top_right) {
-            console.log('tr');
+            // console.log('tr');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
             ball.center.y = obj.position.y - ball.radius + 1;
             

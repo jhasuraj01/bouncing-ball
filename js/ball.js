@@ -75,6 +75,7 @@ class Ball {
             if (Math.abs(elm.center.x - this.center.x) <= this.radius + elm.radius.x && Math.abs(elm.center.y - this.center.y) <= this.radius + elm.radius.x && elm.power > 0) {
                 elm.power = 0;
                 this.game.numberOfNewBall++;
+                number_of_balls_foruserInfo.innerText = `Balls: ${this.game.numberOfNewBall + this.game.numberOfBall}`;
             }
         });
 

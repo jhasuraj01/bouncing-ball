@@ -33,9 +33,9 @@ class Launcher {
         this.game.ctx.closePath();
     }
     updateTarget(event) {
-        console.log(event);
+        // console.log(event);
         let rect = event.target.getBoundingClientRect();
-        game.launcher.target.x = event.offsetX || event.targetTouches[0].pageX - rect.left;
-        game.launcher.target.y = event.offsetY || event.targetTouches[0].pageY - rect.top;
+        game.launcher.target.x = event.offsetX || event.targetTouches[0].pageX - rect.left + event.targetTouches[0].radiusX;
+        game.launcher.target.y = event.offsetY || event.targetTouches[0].pageY - rect.top + event.targetTouches[0].radiusY;
     }
 }

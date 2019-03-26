@@ -7,22 +7,11 @@ class Game {
         this.set();
         // negative represents coin
         this.levels = [
-            [4, 0, 1, 0, 1, 0, 0, -1],
+            [1, 0, 1, 0, 1, 0, 0, -1],
             [-1, 0, 0, 1, 0, 2, 0, 0],
-            [4, -1, 0, 4, 0, 0, 3, 3],
+            [1, -1, 0, 4, 0, 0, 3, 3],
             [0, 0, 3, -1, 4, 8, 9, 0],
             [4, 0, 1, 0, 1, 0, 0, -1],
-            [12, 0, 11, -1, 0, 12, 0, 0],
-            [20, -1, 0, -1, 0, 0, 13, 3],
-            [0, 0, 13, -1, 4, 18, 20, 0],
-            [40, 0, -1, 0, 11, -1, 0, -1],
-            [-1, 0, 0, 1, 0, 2, 0, 0],
-            [4, -1, 0, 4, 0, 0, 3, 3],
-            [0, 0, 3, -1, 4, 8, 9, 0],
-            [4, 0, 1, 0, 1, 0, 0, -1],
-            [-1, 0, 0, 1, 0, 2, 0, 0],
-            [4, -1, 0, 4, 0, 0, 3, 3],
-            [0, 0, 3, -1, 4, 8, 9, 0]
         ];
         this.boxSideLength = (this.canvas.width) / (this.levels[0].length);
 
@@ -68,6 +57,7 @@ class Game {
         if (this.currentState === this.state.over) return; //do not add new items on screen
         if (this.numberOfBallReached === this.numberOfBall && this.currentState !== this.state.newThrow) {
             this.currentLevel++;
+            current_score_foruserInfo.innerText = `Score: ${this.currentLevel}`;
             this.addBox();
             if (this.numberOfNewBall) {
                 this.addBall(this.numberOfNewBall);
@@ -91,15 +81,22 @@ class Game {
         }
         this.numberOfNewBall = 0;
     }
+    random() {
+        let arr = [-1, 0, 1];
+        let result = arr[( Math.ceil(Math.random() * 10))%arr.length];
+        // alert(result)
+        return result;
+    }
     addBox() {
         const newRow = this.levels[(this.currentLevel) % this.levels.length];
         if (!newRow) return;
         newRow.forEach((box, boxIndex) => {
+            box = this.random();
             if (box < 0) {
                 this.coins.push(new Coin(this, this.currentLevel, boxIndex));
             } else if (box > 0) {
                 // this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + Math.random()*this.currentLevel), 'red', this.currentLevel, boxIndex));
-                this.boxes.push(new Box(this, Math.ceil(this.currentLevel + 1 + 5 * Math.random() * this.currentLevel), 'red', this.currentLevel, boxIndex));
+                this.boxes.push(new Box(this, Math.ceil(this.currentLevel + this.numberOfBall + 1 + 5 * Math.random() * this.currentLevel), 'red', this.currentLevel, boxIndex));
             }
         });
     }
