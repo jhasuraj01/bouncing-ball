@@ -5,11 +5,14 @@ class Launcher {
             x: this.game.canvas.width / 2,
             y: (this.game.ballLaunchBox.y + this.game.ballLaunchBox.height / 2)
         }
-        this.target = {x: this.center.x, y: this.center.y};
+        this.target = { x: this.center.x, y: this.center.y };
         this.game.canvas.addEventListener('mousemove', this.updateTarget);
-        this.length = this.game.canvas.width/2;
+        this.game.canvas.addEventListener('touchstart', this.updateTarget);
+        this.game.canvas.addEventListener('touchmove', this.updateTarget);
+
+        this.length = this.game.canvas.width / 2;
         this.radius = this.game.ballRadius;
-        this.direction = new Vector(this.game.canvas.width/2 - this.center.x, this.game.canvas.height/2 - this.center.y);
+        this.direction = new Vector(this.game.canvas.width / 2 - this.center.x, this.game.canvas.height / 2 - this.center.y);
     }
     update() {
         this.center = {
@@ -30,8 +33,8 @@ class Launcher {
         this.game.ctx.closePath();
     }
     updateTarget(event) {
-        game.launcher.target.x = event.offsetX;
-        game.launcher.target.y = event.offsetY;
-        // this.target = {x: event.offsetX, y: event.offsetY};
+        let rect = event.target.getBoundingClientRect();
+        game.launcher.target.x = event.offsetX || event.targetTouches[0].pageX - rect.left;
+        game.launcher.target.y = event.offsetY || event.targetTouches[0].pageY - rect.top;
     }
 }
