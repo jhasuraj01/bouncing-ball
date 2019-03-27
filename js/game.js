@@ -82,7 +82,7 @@ class Game {
         this.numberOfNewBall = 0;
     }
     random() {
-        let arr = [-1, 0, 1];
+        let arr = [-1, 0, 1, 1];
         let result = arr[( Math.ceil(Math.random() * 10))%arr.length];
         // alert(result)
         return result;
