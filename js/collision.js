@@ -38,7 +38,7 @@ class Collision {
         return (ball.center.x <= ball.radius);
     }
 
-    // check collision with top Of Object
+    // check collision with verticle part Of Object
     handleVerticalOfObject(ball, obj) {
         if (this.topOfObject(ball, obj)) {
             ball.center.y = obj.position.y - ball.radius - 1;
@@ -57,7 +57,7 @@ class Collision {
         }
     }
 
-    // check collision with bottom Of Object
+    // check collision with horizontal part Of Object
     handleHorizontalOfObject(ball, obj) {
         if (this.rightOfObject(ball, obj)) {
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
