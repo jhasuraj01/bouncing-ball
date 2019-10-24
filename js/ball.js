@@ -1,11 +1,11 @@
 class Ball {
-    constructor(game, color, center, radius, velocity) {
+    constructor(game, color, center, velocity) {
         this.game = game;
         this.color = color;
         this.reached = false;
 
         this.center = { x: center.x, y: center.y };
-        this.radius = radius;
+        this.radius = this.game.ballRadius;
         this.velocity = new Vector(velocity.x, velocity.y);
     }
     draw() {

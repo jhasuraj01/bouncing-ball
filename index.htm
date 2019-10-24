@@ -11,10 +11,10 @@
 
 <body>
     <section id="start-menu-window">
-        <button class="toggleFullScreen">Full Screen</button>
+        <!-- <button class="toggleFullScreen">Full Screen</button> -->
         <fieldset class="menu-btn-container">
             <legend>menu</legend>
-            <button id="startGame">Start</button>
+            <button class="startFullScreen" id="startGame">Start</button>
             <button>Sound off</button>
             <button>Info</button>
             <button>About</button>
@@ -22,19 +22,19 @@
     </section>
     <section id="end-menu-window" style="display: none;">
         <header>Game Over</header>
-        <button class="toggleFullScreen">close Full Screen</button>
+        <!-- <button class="toggleFullScreen">close Full Screen</button> -->
         <fieldset class="menu-btn-container">
             <legend>score</legend>
             <p id="score-value">20 Lines</p>
         </fieldset>
-        <button id="end-menu-cancel-btn">Cancel</button>
+        <button id="end-menu-cancel-btn" class="endFullScreen">Cancel</button>
     </section>
     <section class="game-menu">
         <fieldset>
             <legend>Bouncing Ball</legend>
             <button id="newGame">New</button>
-            <button id="pauseGame">Pause</button>
-            <button id="resumeGame">Resume</button>
+            <button id="pauseGame" class="endFullScreen">Pause</button>
+            <button id="resumeGame" class="startFullScreen">Resume</button>
         </fieldset>
     </section>
 

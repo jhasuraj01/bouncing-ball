@@ -11,23 +11,51 @@ let startNewGame = () => {
     start_menu_window.style.display = 'none';
 }
 
-let toggleFullScreen = () => {
+/*
+  Event listeners for Full Screen Mode.
+*/
+let startFullScreen = () => {
     var doc = window.document;
     var docEl = doc.documentElement;
 
     var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
     if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
         requestFullScreen.call(docEl);
     }
-    else {
+}
+let endFullScreen = () => {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    if (doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement) {
         cancelFullScreen.call(doc);
     }
 }
-for (const btn of document.getElementsByClassName('toggleFullScreen')) {
-    btn.addEventListener('click', toggleFullScreen);
+for (const btn of document.getElementsByClassName('startFullScreen')) {
+    btn.addEventListener('click', startFullScreen);
 }
+for (const btn of document.getElementsByClassName('endFullScreen')) {
+    btn.addEventListener('click', endFullScreen);
+}
+
+// let toggleFullScreen = () => {
+//     var doc = window.document;
+//     var docEl = doc.documentElement;
+
+//     var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+//     var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+//     if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+//         requestFullScreen.call(docEl);
+//     }
+//     else {
+//         cancelFullScreen.call(doc);
+//     }
+// }
+// for (const btn of document.getElementsByClassName('toggleFullScreen')) {
+//     btn.addEventListener('click', toggleFullScreen);
+// }
 
 start_button.addEventListener('click', startNewGame);
 pause_button.addEventListener('click', () => { game.state.pause(); });

@@ -21,6 +21,9 @@ class Game {
         this.currentState = this.state.menu;
 
         this.launcher = new Launcher(this);
+
+        window.addEventListener('resize', () => {this.resetPlaygroundOnScreenResize(this)});
+        window.addEventListener('fullscreenchange', () => {this.resetPlaygroundOnScreenResize(this)});
     }
     set() {
         canvas.width = canvas.scrollWidth;
@@ -34,6 +37,57 @@ class Game {
             height: this.ballRadius * 3
         };
     }
+
+    resetPlaygroundOnScreenResize() {
+        let initialCanvasWidth = canvas.width; // use to rescale object in perfect ratio.
+
+        //resetting canvas width
+        canvas.width = canvas.scrollWidth;
+        canvas.height = canvas.scrollHeight;
+        this.boxSideLength = (this.canvas.width) / (this.levels[0].length);
+
+        //reset launchbox
+        this.ballLaunchBox = {
+            x: 0,
+            y: this.canvas.height - this.ballRadius * 3,
+            width: this.canvas.width,
+            height: this.ballRadius * 3
+        };
+
+        //resetting ball launcher.
+        if (this.ballStartPoint) {
+            this.ballStartPoint.y = this.ballLaunchBox.y + this.ballLaunchBox.height / 2;
+            this.ballStartPoint.x = (this.ballStartPoint.x/initialCanvasWidth)*canvas.width;
+        }
+
+        //resetting coins
+        if(this.coins)
+        this.coins.forEach((coin) => {
+            coin.center.x = this.boxSideLength * (0.5 + coin.columnNumber);
+            coin.radius = { x: this.boxSideLength*0.4, y: this.boxSideLength*0.3 };
+        });
+
+        //resetting Properties of Boxes
+        if (this.boxes)
+        this.boxes.forEach((box) => {
+            box.height = box.width = this.boxSideLength;
+            box.position.x = box.width * box.columnNumber
+        });
+        
+        //resetting properties of ball
+        this.ballRadius = (this.canvas.width + this.canvas.height) / 100;
+        this.ballSpeed = (this.canvas.width + this.canvas.height) / 6;
+
+        //resetting launch position of ball.
+        if (this.balls)
+        this.balls.forEach((ball) => {
+            ball.radius = this.ballRadius;
+            if(ball.velocity.x == 0 && ball.velocity.y == 0) {
+                ball.center.y = this.ballStartPoint.y;
+                ball.center.x = this.ballStartPoint.x;
+            }
+        });
+    }
     startNew() {
         this.set();
         this.boxes = [];
@@ -44,7 +98,6 @@ class Game {
         this.numberOfBallReached = 0;
         this.currentLevel = 0;
         this.ballStartPoint = { x: this.canvas.width / 2, y: (this.ballLaunchBox.y + this.ballLaunchBox.height / 2) };
-
         this.addBox();
         this.addBall(this.numberOfNewBall);
     }
@@ -76,7 +129,7 @@ class Game {
     }
     addBall(num) {
         for (let i = 0; i < num; i++) {
-            this.balls.push(new Ball(this, this.colors[(this.numberOfBall) % this.colors.length], this.ballStartPoint, this.ballRadius, { x: 0, y: 0 }));
+            this.balls.push(new Ball(this, this.colors[(this.numberOfBall) % this.colors.length], this.ballStartPoint, { x: 0, y: 0 }));
             this.numberOfBall++;
         }
         this.numberOfNewBall = 0;

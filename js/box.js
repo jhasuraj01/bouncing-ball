@@ -4,10 +4,11 @@ class Box {
         this.color = color;
         this.power = power;
         this.rowNumber = rowNumber;
-        
+        this.columnNumber = columnNumber;
+
         this.height = this.width = this.game.boxSideLength;
         this.position = {};
-        this.position.x = this.width * columnNumber;
+        this.position.x = this.width * this.columnNumber;
         this.position.y = 0;
     }
     update() {

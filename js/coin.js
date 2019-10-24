@@ -3,8 +3,9 @@ class Coin {
         this.game = game;
         this.power = 1;
         this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
         this.center = {
-            x: this.game.boxSideLength * (0.5 + columnNumber),
+            x: this.game.boxSideLength * (0.5 + this.columnNumber),
             y: this.game.boxSideLength * 0.5
         };
         this.radius = { x: this.game.boxSideLength*0.4, y: this.game.boxSideLength*0.3 };
