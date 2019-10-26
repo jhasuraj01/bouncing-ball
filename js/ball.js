@@ -17,10 +17,18 @@ class Ball {
     }
     update() {
         this.center.x += this.velocity.x * this.game.deltaTime * 0.003;
-        this.center.y += this.velocity.y * this.game.deltaTime *0.003;
+        this.center.y += this.velocity.y * this.game.deltaTime * 0.003;
 
-        // handle collision with vertical wall
-        this.game.collision.handleVerticalWall(this);
+        // check collision with right vertical wall
+        if (this.game.collision.rightWall(this)) {
+            this.velocity.x = - this.velocity.x;
+            this.center.x = this.game.canvas.width - this.radius;
+        }
+        // check collision with left vertical wall
+        else if (this.game.collision.leftWall(this)) {
+            this.velocity.x = - this.velocity.x;
+            this.center.x = this.radius;
+        }
 
         // check collision with top horizontal wall
         if (this.game.collision.topWall(this)) {
@@ -57,7 +65,7 @@ class Ball {
                 }
             }
         }
-// check collision with boxes
+        // check collision with boxes
         this.game.boxes.forEach(elm => {
 
             if (this.game.collision.handleHorizontalOfObject(this, elm)) {

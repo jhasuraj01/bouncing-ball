@@ -2,42 +2,31 @@ class Collision {
     constructor(game) {
         this.game = game;
     }
-    handleVerticalWall(ball) {
-        // check collision with right vertical wall
-        if (this.rightWall(ball)) {
-            ball.velocity.x = - ball.velocity.x;
-            ball.center.x = this.game.canvas.width - ball.radius;
-            return true;
-        }
-        // check collision with left vertical wall
-        else if (this.leftWall(ball)) {
-            ball.velocity.x = - ball.velocity.x;
-            ball.center.x = ball.radius;
-            return true;
-        }
-        else return false;
-    }
 
+/***********************************************************************
+    Check Collisions with Walls
+************************************************************************/
     // check collision with top wall
     topWall(ball) {
         return (ball.center.y <= ball.radius);
     }
-
     // check collision with bottom wall
     bottomWall(ball) {
         return (ball.center.y + ball.radius >= this.game.canvas.height);
     }
-
     // check collision with right wall
     rightWall(ball) {
         return (ball.center.x + ball.radius >= this.game.canvas.width);
     }
-
     // check collision with left wall
     leftWall(ball) {
         return (ball.center.x <= ball.radius);
     }
 
+        
+/***********************************************************************
+    Check Collisions with boxes
+************************************************************************/
     // check collision with verticle part Of Object
     handleVerticalOfObject(ball, obj) {
         if (this.topOfObject(ball, obj)) {
