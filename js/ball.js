@@ -16,6 +16,11 @@ class Ball {
         this.game.ctx.fill();
     }
     update() {
+        //if statement code; add gravity and delete it
+        if (Math.abs(this.velocity.y/this.velocity.x) < 0.1) {
+            this.velocity.y > 0 ? this.velocity.y++ : this.velocity.y--;
+        }
+
         this.center.x += this.velocity.x * this.game.deltaTime * 0.003;
         this.center.y += this.velocity.y * this.game.deltaTime * 0.003;
 
@@ -65,18 +70,46 @@ class Ball {
                 }
             }
         }
+        let touchedNoOfCorners;
+        let touchedNoOfHorizonalSide;
+        let touchedNoOfVerticleSide;
         // check collision with boxes
-        this.game.boxes.forEach(elm => {
+        this.game.boxes.forEach((elm, index) => {
+
+            if (index === 0) {                  //temp code 1
+                touchedNoOfCorners = [];         //temp code 1
+                touchedNoOfVerticleSide = [];    //temp code 1
+                touchedNoOfHorizonalSide = [];   //temp code 1
+            }                                   //temp code 1
 
             if (this.game.collision.handleHorizontalOfObject(this, elm)) {
                 elm.power--;
+                touchedNoOfHorizonalSide.push(elm);     //temp code 1
             }
             else if (this.game.collision.handleVerticalOfObject(this, elm)) {
                 elm.power--;
+                touchedNoOfVerticleSide.push(elm);      //temp code 1
             }
             else if (this.game.collision.corner(this, elm)) {
                 elm.power--;
+                touchedNoOfCorners.push(elm);           //temp code 1
             }
+
+            if (touchedNoOfCorners.length > 1) {       //temp code 1
+                this.color = '#ffffff';         //temp code 1
+                console.log('multiple corner'); //temp code 1
+                console.log(touchedNoOfCorners);               //temp code 1
+            }                                   //temp code 1
+            if (touchedNoOfHorizonalSide.length > 1) { //temp code 1
+                this.color = '#ffffff';         //temp code 1
+                console.log('multiple horizontal'); //temp code 1
+                console.log(touchedNoOfHorizonalSide);
+            }                                   //temp code 1
+            if (touchedNoOfVerticleSide.length > 1) {  //temp code 1
+                this.color = '#ffffff';         //temp code 1
+                console.log('multiple verticle'); //temp code 1
+                console.log(touchedNoOfVerticleSide);
+            }                                   //temp code 1
         });
         // check collision with coins
         this.game.coins.forEach(elm => {

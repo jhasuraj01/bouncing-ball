@@ -30,7 +30,7 @@ class Collision {
     // check collision with verticle part Of Object
     handleVerticalOfObject(ball, obj) {
         if (this.topOfObject(ball, obj)) {
-            ball.center.y = obj.position.y - ball.radius - 1;
+            ball.center.y = obj.position.y - ball.radius - 1; // 1 is substracted to avoid circle touch the border of box.
             ball.velocity.y = - ball.velocity.y;
             // console.log('top hit');
             return true;
@@ -104,31 +104,31 @@ class Collision {
         let T_bottom_right = Math.abs(ball.center.x - obj.position.x - obj.width) < ball.radius && Math.abs(ball.center.y - obj.position.y - obj.height) < ball.radius;
 
         if (T_bottom_left) {
-            console.log('bl');
-            ball.center.x = obj.position.x - ball.radius + 1;
+            // console.log('bl');
+            ball.center.x = obj.position.x - ball.radius - 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
 
             if (ball.velocity.x >= 0 && ball.velocity.y <= 0) {
                 let temp_x = ball.velocity.x;
                 ball.velocity.x = ball.velocity.y;
                 ball.velocity.y = temp_x;
-                console.log(1);
+                // console.log(1);
                 return true;
             } else if (ball.velocity.x >= 0 && ball.velocity.y >= 0) {
                 ball.velocity.x = -ball.velocity.x;
-                console.log(2);
+                // console.log(2);
                 return true;
             } else if (ball.velocity.x <= 0 && ball.velocity.y <= 0) {
                 ball.velocity.y = - ball.velocity.y;
-                console.log(3);
+                // console.log(3);
                 return true;
             } else {
-                console.log('bl: err');
+                // console.log('bl: err');
             }
             return false;
         }
         else if (T_bottom_right) {
-            console.log('br');
+            // console.log('br');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
             ball.center.y = obj.position.y + obj.height + ball.radius + 1;
 
@@ -136,66 +136,66 @@ class Collision {
                 let temp_x = ball.velocity.x;
                 ball.velocity.x = - ball.velocity.y;
                 ball.velocity.y = - temp_x;
-                console.log(1);
+                // console.log(1);
                 return true;
             } else if (ball.velocity.x <= 0 && ball.velocity.y >= 0) {
                 ball.velocity.x = -ball.velocity.x;
-                console.log(2);
+                // console.log(2);
                 return true;
             } else if (ball.velocity.x >= 0 && ball.velocity.y <= 0) {
                 ball.velocity.y = - ball.velocity.y;
-                console.log(3);
+                // console.log(3);
                 return true;
             } else {
-                console.log('br: err');
+                // console.log('br: err');
             }
             return false;
         }
         else if (T_top_left) {
-            console.log('tl');
-            ball.center.x = obj.position.x - ball.radius + 1;
-            ball.center.y = obj.position.y - ball.radius + 1;
+            // console.log('tl');
+            ball.center.x = obj.position.x - ball.radius - 1;
+            ball.center.y = obj.position.y - ball.radius - 1;
 
             if (ball.velocity.x >= 0 && ball.velocity.y >= 0) {
                 let temp_x = ball.velocity.x;
                 ball.velocity.x = - ball.velocity.y;
                 ball.velocity.y = - temp_x;
-                console.log(1);
+                // console.log(1);
                 return true;
             } else if (ball.velocity.x >= 0 && ball.velocity.y <= 0) {
                 ball.velocity.x = -ball.velocity.x;
-                console.log(2);
+                // console.log(2);
                 return true;
             } else if (ball.velocity.x <= 0 && ball.velocity.y >= 0) {
                 ball.velocity.y = - ball.velocity.y;
-                console.log(3);
+                // console.log(3);
                 return true;
             } else {
-                console.log('tl: err');
+                // console.log('tl: err');
             }
             return false;
         }
         else if (T_top_right) {
-            console.log('tr');
+            // console.log('tr');
             ball.center.x = obj.position.x + obj.width + ball.radius + 1;
-            ball.center.y = obj.position.y - ball.radius + 1;
+            ball.center.y = obj.position.y - ball.radius - 1;
 
             if (ball.velocity.x <= 0 && ball.velocity.y >= 0) {
                 let temp_x = ball.velocity.x;
                 ball.velocity.x = ball.velocity.y;
                 ball.velocity.y = temp_x;
-                console.log(1);
+                // console.log(1);
                 return true;
             } else if (ball.velocity.x <= 0 && ball.velocity.y <= 0) {
                 ball.velocity.x = -ball.velocity.x;
-                console.log(2);
+                // console.log(2);
                 return true;
             } else if (ball.velocity.x >= 0 && ball.velocity.y >= 0) {
                 ball.velocity.y = - ball.velocity.y;
-                console.log(3);
+                // console.log(3);
                 return true;
             } else {
-                console.log('tr: err');
+                // console.log('tr: err');
             }
             return false;
         }
