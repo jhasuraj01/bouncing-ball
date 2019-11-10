@@ -1,4 +1,4 @@
-# bouncing-ball
+# Bouncing-Ball
 Beta Version
 
 Compatibility: All the modern browsers.
